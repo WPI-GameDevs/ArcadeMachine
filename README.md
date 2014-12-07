@@ -1,4 +1,4 @@
-ArcadeMachine
-=============
+WpiArcadeMachine
+================
 
-Repo for arcade machine
+Code for the WPI Arcade Machine
