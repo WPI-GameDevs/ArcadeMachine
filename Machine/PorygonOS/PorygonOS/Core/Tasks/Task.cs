@@ -1,6 +1,7 @@
 ﻿using PorygonOS.Core.Debug;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,11 @@ namespace PorygonOS.Core.Tasks
             get { return bShutdown; }
         }
 
+        public Task()
+        {
+
+        }
+
         /// <summary>
         /// Called every time this task should run
         /// </summary>
@@ -36,6 +42,10 @@ namespace PorygonOS.Core.Tasks
         {
             bShutdown = true;
         }
+
+        public abstract void Serialize(BinaryWriter writer);
+
+        public abstract void Deserialize(BinaryReader reader);
 
         protected abstract int  OnRun();
 

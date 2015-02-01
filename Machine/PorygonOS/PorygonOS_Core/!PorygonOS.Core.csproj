@@ -4,29 +4,27 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{975D8334-6E57-4D6D-ADB5-8A89E82B271C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PorygonOS</RootNamespace>
-    <AssemblyName>PorygonOS</AssemblyName>
+    <RootNamespace>PorygonOS.Core</RootNamespace>
+    <AssemblyName>PorygonOS.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\SystemDebug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\System\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -37,8 +35,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,42 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Commands\CommandAttribute.cs" />
-    <Compile Include="Core\Commands\CommandExecuter.cs" />
-    <Compile Include="Core\Commands\ExitCommand.cs" />
-    <Compile Include="Core\Debug\Log.cs" />
-    <Compile Include="Core\Processes\BaseProcess.cs" />
-    <Compile Include="Core\Processes\GameProcess.cs" />
-    <Compile Include="Core\Processes\ProcessWatcher.cs" />
-    <Compile Include="Core\Reflection\ReflectionHelper.cs" />
-    <Compile Include="Core\Tasks\NoBoot.cs" />
-    <Compile Include="Core\Tasks\Task.cs" />
-    <Compile Include="Core\Tasks\TaskThread.cs" />
-    <Compile Include="Core\Users\User.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ConfigFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\shared.ini">
-      <Link>shared.ini</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="config.ini">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Boot\" />
-    <Folder Include="Frontend\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PorygonConfigLib\!PorygonOS.Core.csproj">
-      <Project>{12affec3-7797-4223-af3a-eba62e67eb2c}</Project>
-      <Name>!PorygonOS.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
