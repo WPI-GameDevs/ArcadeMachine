@@ -33,35 +33,39 @@ You should also label what branch the issue is on if it is not on master. Otherw
 
 When addressing an issue, your commits should follow the following format.
 
-Issue #<issue number> <short description>
+Issue #[issue number] [short description]
 
-<long description>
+[long description]
 
-Tested By: <Test method>
+Tested By: [Test method]
 
 An example would be:
 
 <b>
 Issue #22 Fixed bug in log file
+</b>
 
+<b>
 This commit fixes the bug in the logging code.
+</b>
 
+<b>
 Tested By: Logging a test string to the console.
 </b>
 
 If a you believe a commit resolves an issue then at the end of the commit you should include a line like so:
-Reviewer @<reviewer user name>
+Reviewer @[reviewer user name]
 Where the reviewer user name is the user name of the person you want to give the code review (more on this later). It is important to always give a reviewer, otherwise your issue will never be resolved.
 
 If your commit is for a code review it should follow this format:
 
-CR for #<issue number> <short description>
+CR for #[issue number] [short description]
 
-<long description>
+[long description]
 
-Tested By: <Test method>
+Tested By: [Test method]
 
-Reviewer @<reviewer user name>
+Reviewer @[reviewer user name]
 
 This is similar to a plain issue commit, however it starts with CR for code review, and it requires a reviewer to be given.
 
@@ -75,11 +79,11 @@ When a code review is assigned to you, you should look through the code changes 
 
 If you are not a Lead Developer, then you will be committing through pull requests rather than pushing directly to the repo. When you create your pull request you should pull with a comment of the following layout:
 
-Issue #<issue number> <short description>
+Issue #[issue number] [short description]
 
-<long description>
+[long description]
 
-Tested By: <Test method>
+Tested By: [Test method]
 
 Your pull request will be picked up by a lead developer who will either accept it into the repo, or reject it with comments.
 
@@ -90,9 +94,9 @@ There are three different types of branches.
 Master:
 The master branch is the main branch where all working code will be put.
 
-Feature-<feature name>:
+Feature-[feature name]:
 This is a branch that contains some experimental features, if you create a feature branch, also make a label for issues for it. A feature branch will always be created from master and merge back into master.
 
-Build-<build number>:
+Build-[build number]:
 This is a branch that contains some working build of the arcade machine. If you create a build branch, a label for issues should also be created. A build branch will always come from master and will never merge back. Changes made to a build branch are considered specific to that branch.
 
