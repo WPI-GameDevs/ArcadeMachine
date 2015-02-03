@@ -46,6 +46,7 @@
       <Link>Config\ConfigFile.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FileSystem\DirectoryInfoExtension.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="RPC\NativeRPC.cs" />
     <Compile Include="RPC\RPCManager.cs" />

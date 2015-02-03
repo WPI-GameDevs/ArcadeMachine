@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -86,6 +87,32 @@ namespace PorygonOS.Core.Users
                 return false;
             }
 
+            gamePath = config.GetPath("SystemInfo", "GameLocation").OriginalString;
+            rootPath = config.GetPath("SystemInfo", "RootLocation").OriginalString;
+
+            DirectoryInfo gameDirectoryInfo = Directory.CreateDirectory(gamePath);
+            gameDirectoryInfo.Create();
+
+            string defaultUserPath = Program.GlobalConfig.GetPath("User", "DefaultUser").OriginalString;
+            DirectoryInfo defaultUserPathInfo = new DirectoryInfo(defaultUserPath);
+
+            DirectoryInfo rootDirectoryInfo = defaultUserPathInfo.Copy(rootPath);
+
+            FileSystemAccessRule accessRule = new FileSystemAccessRule(userName, FileSystemRights.Modify, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.None, AccessControlType.Allow);
+            FileSystemAccessRule denyRule = new FileSystemAccessRule(userName, FileSystemRights.TakeOwnership | FileSystemRights.ChangePermissions, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.None, AccessControlType.Allow);
+
+            DirectorySecurity rootSecurity = rootDirectoryInfo.GetAccessControl();
+            rootSecurity.AddAccessRule(accessRule);
+            rootSecurity.AddAccessRule(denyRule);
+            rootDirectoryInfo.SetAccessControl(rootSecurity);
+
+            DirectorySecurity gameSecurity = gameDirectoryInfo.GetAccessControl();
+            gameSecurity.AddAccessRule(accessRule);
+            gameSecurity.AddAccessRule(denyRule);
+            gameDirectoryInfo.SetAccessControl(gameSecurity);
+
+
+
             userTable.Add(userName, this);
             UpdateInstallFile();
 
@@ -114,6 +141,10 @@ namespace PorygonOS.Core.Users
         private string key;
 
         private string userPath;
+
+        private string gamePath;
+
+        private string rootPath;
 
         private ConfigFile config;
 

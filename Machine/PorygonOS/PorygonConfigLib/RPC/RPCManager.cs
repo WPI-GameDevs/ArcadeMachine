@@ -12,7 +12,7 @@ namespace PorygonOS.Core.RPC
     {
         public bool IsValid
         {
-            get { valid; }
+            get { return valid; }
         }
 
         public string Destination
@@ -48,25 +48,26 @@ namespace PorygonOS.Core.RPC
     {
         public delegate void RPCNativeCall(params string[] args);
 
-        protected struct RPCTableEntry
+        protected class RPCTableEntry
         {
-            public RPCNativeCall NativeCode
-            {
-                get { return nativeCode; }
-            }
+            public event RPCNativeCall NativeCode;
 
             public RPCSecurityLevel Security
             {
-                get { return securityLeve; }
+                get { return securityLevel; }
+            }
+
+            public void Invoke(params string[] args)
+            {
+                NativeCode(args);
             }
 
             public RPCTableEntry(RPCNativeCall nativeCall, RPCSecurityLevel securityLevel)
             {
-                this.nativeCode = nativeCall;
                 this.securityLevel = securityLevel;
+                this.NativeCode += nativeCall;
             }
 
-            private RPCNativeCall nativeCode;
             private RPCSecurityLevel securityLevel;
         }
 
@@ -130,7 +131,7 @@ namespace PorygonOS.Core.RPC
 
             try
             {
-                entry.NativeCode(commandInfo.Args);
+                entry.Invoke(commandInfo.Args);
             }
             catch
             {
@@ -173,9 +174,9 @@ namespace PorygonOS.Core.RPC
             if (!match.Success)
                 return new RPCCommandInfo(false, null, null, null);
 
-            string destination = match.Groups["dest"];
-            string cmdName = match.Groups["name"];
-            string commandLine = match.Groups["line"];
+            string destination = match.Groups["dest"].Value;
+            string cmdName = match.Groups["name"].Value;
+            string commandLine = match.Groups["line"].Value;
 
             string[] args = BreakCommandString(commandLine);
 
@@ -243,7 +244,7 @@ namespace PorygonOS.Core.RPC
 
         private string localName;
 
-        private const Regex rpcRegEx = new Regex(rpcPattern, RegexOptions.Compiled);
+        private static readonly Regex rpcRegEx = new Regex(rpcPattern, RegexOptions.Compiled);
         private const string rpcPattern = @"##&RPC\[(?<dest>[.a-zA-Z0-9]+)\] (?<name>[a-zA-Z0-9]+) (?<line>[ -~]+)";
 
         private static RPCManager instance;

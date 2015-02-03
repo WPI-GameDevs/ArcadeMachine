@@ -154,3 +154,11 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+Machine/System/
+Machine/SystemDebug/
+Machine/GameBank/
+Machine/PorygonOS/PorygonOS.exe.config
+Machine/PorygonOS/PorygonOS.vshost.exe.config
+Machine/PorygonOS/PorygonOS/PorygonOS.exe.config
+Machine/PorygonOS/PorygonOS/PorygonOS.vshost.exe.config
+Machine/PorygonOS/PorygonOS/PorygonOS.vshost.exe.manifest
