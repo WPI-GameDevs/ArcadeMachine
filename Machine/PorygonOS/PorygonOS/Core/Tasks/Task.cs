@@ -49,6 +49,6 @@ namespace PorygonOS.Core.Tasks
 
         protected abstract int  OnRun();
 
-        private bool bShutdown;
+        private volatile bool bShutdown;
     }
 }

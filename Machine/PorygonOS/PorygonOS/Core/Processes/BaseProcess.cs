@@ -36,9 +36,9 @@ namespace PorygonOS.Core.Processes
             return process;
         }
 
-        public static IEnumerator<BaseProcess> IterateProcesses()
+        public static IEnumerable<BaseProcess> IterateProcesses()
         {
-            return processTable.Values.GetEnumerator();
+            return processTable.Values.AsEnumerable();
         }
 
         /// <summary>
@@ -184,6 +184,9 @@ namespace PorygonOS.Core.Processes
                         break;
                     case ProcessSecurityAccess.High:
                         rpcSecurityLevel = RPC.RPCSecurityLevel.High;
+                        break;
+                    default:
+                        rpcSecurityLevel = RPCSecurityLevel.Low;
                         break;
                 }
 

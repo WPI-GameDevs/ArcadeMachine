@@ -17,7 +17,7 @@ namespace PorygonOS.Core.Users
             get { return Program.GlobalConfig.GetPath("Users", "UserBank").OriginalString; }
         }
 
-        public void User(string userName)
+        public User(string userName)
         {
             this.userName = userName;
             Load();
@@ -152,7 +152,7 @@ namespace PorygonOS.Core.Users
 
         private UserPrincipal systemUser;
 
-        private const PrincipalContext localContext = new PrincipalContext(ContextType.Machine);
+        private static readonly PrincipalContext localContext = new PrincipalContext(ContextType.Machine);
 
         private static SortedDictionary<string, User> userTable = new SortedDictionary<string, User>();
     }

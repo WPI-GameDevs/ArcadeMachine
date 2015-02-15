@@ -56,7 +56,7 @@
     <Compile Include="Core\Reflection\ReflectionHelper.cs" />
     <Compile Include="Core\Tasks\NoBoot.cs" />
     <Compile Include="Core\Tasks\Task.cs" />
-    <Compile Include="Core\Tasks\TaskThread.cs" />
+    <Compile Include="Core\Tasks\TaskScheduler.cs" />
     <Compile Include="Core\Users\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

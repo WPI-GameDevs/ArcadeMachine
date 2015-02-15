@@ -52,7 +52,7 @@ namespace PorygonOS.Core.Processes
                 securePassword.AppendChar(c);
             }
 
-            startInfo.Password = password;
+            startInfo.Password = securePassword;
 
             startInfo.LoadUserProfile = true;
 

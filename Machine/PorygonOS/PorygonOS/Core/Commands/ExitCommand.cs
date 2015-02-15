@@ -12,6 +12,7 @@ namespace PorygonOS.Core.Commands
         public void Execute()
         {
             Program.Shutdown();
+            Debug.Log.WriteLine("Exiting program...");
         }
     }
 }

@@ -46,26 +46,53 @@ namespace PorygonOS
 
             RPCManager.Create(".");
 
-            TaskThread.StartupDefault();//startup the task threads
-
             CommandExecuter commandExecuter = new CommandExecuter();
             commandExecuter.Execute(args);
 
+            scheduler = new Core.Tasks.TaskScheduler();
+
+            Thread readInThread = new Thread(ReadIn);
+            readInThread.Start();
+
             while(bRunning)
             {
-                string commandString = Console.ReadLine();
-                string[] commands = commandExecuter.BreakCommandString(commandString);
-                commandExecuter.Execute(commands);
+                Thread.Sleep(10000);
             }
 
-            TaskThread.ShutdownAll();
+            readInSafeAccess.WaitOne(Timeout.InfiniteTimeSpan, true);
+            readInThread.Abort();
+            readInSafeAccess.ReleaseMutex();
+
+            scheduler.Shutdown();
+            scheduler.WaitForShutdownComplete();
 
             globalConfig.Save();
+
+            systemLock.ReleaseMutex();
+        }
+
+        static void ReadIn()
+        {
+            CommandExecuter commandExecuter = new CommandExecuter();
+
+            while (true)
+            {
+                string commandString = Console.ReadLine();
+
+                readInSafeAccess.WaitOne(Timeout.InfiniteTimeSpan, true);
+                string[] commands = commandExecuter.BreakCommandString(commandString);
+                commandExecuter.Execute(commands);
+                readInSafeAccess.ReleaseMutex();
+            }
         }
 
         private static bool bRunning = true;
 
         private static ConfigFile globalConfig;
         private static ConfigFile sharedConfig;
+
+        private static PorygonOS.Core.Tasks.TaskScheduler scheduler;
+
+        private static Mutex readInSafeAccess = new Mutex();
     }
 }
