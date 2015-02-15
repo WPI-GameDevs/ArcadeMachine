@@ -49,7 +49,7 @@
     <Compile Include="Core\Commands\CommandAttribute.cs" />
     <Compile Include="Core\Commands\CommandExecuter.cs" />
     <Compile Include="Core\Commands\ExitCommand.cs" />
-    <Compile Include="Core\Debug\Log.cs" />
+    <Compile Include="Core\Debug_Core\Log.cs" />
     <Compile Include="Core\Processes\BaseProcess.cs" />
     <Compile Include="Core\Processes\GameProcess.cs" />
     <Compile Include="Core\Processes\ProcessWatcher.cs" />
