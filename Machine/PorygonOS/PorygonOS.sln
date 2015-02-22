@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PorygonOS", "PorygonOS\PorygonOS.csproj", "{975D8334-6E57-4D6D-ADB5-8A89E82B271C}"
 EndProject
@@ -19,21 +19,35 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Debug|x64.ActiveCfg = Debug|x64
+		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Debug|x64.Build.0 = Debug|x64
 		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Release|x64.ActiveCfg = Release|x64
+		{975D8334-6E57-4D6D-ADB5-8A89E82B271C}.Release|x64.Build.0 = Release|x64
 		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Debug|x64.ActiveCfg = Debug|x64
+		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Debug|x64.Build.0 = Debug|x64
 		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Release|x64.ActiveCfg = Release|x64
+		{365B232E-02EA-47F3-BCFD-EF21334AC7F3}.Release|x64.Build.0 = Release|x64
 		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Debug|x64.ActiveCfg = Debug|x64
+		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Debug|x64.Build.0 = Debug|x64
 		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Release|x64.ActiveCfg = Release|x64
+		{12AFFEC3-7797-4223-AF3A-EBA62E67EB2C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

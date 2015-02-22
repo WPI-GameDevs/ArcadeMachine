@@ -3,6 +3,7 @@ using PorygonOS.Core.Config;
 using PorygonOS.Core.Debug;
 using PorygonOS.Core.RPC;
 using PorygonOS.Core.Tasks;
+using PorygonOS.Core.HelperClasses;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,9 @@ namespace PorygonOS
             CommandExecuter commandExecuter = new CommandExecuter();
             commandExecuter.Execute(args);
 
+            Thread keyboardInterceptorThread = new Thread(SetupKeyboardInterceptor);
+            keyboardInterceptorThread.Start();
+
             scheduler = new Core.Tasks.TaskScheduler();
 
             Thread readInThread = new Thread(ReadIn);
@@ -84,6 +88,16 @@ namespace PorygonOS
                 commandExecuter.Execute(commands);
                 readInSafeAccess.ReleaseMutex();
             }
+        }
+
+        /// <summary>
+        /// Set up the keyboard interceptor in another thread so it can get the keys that are pressed.
+        /// </summary>
+        [STAThread]
+        static void SetupKeyboardInterceptor()
+        {
+            KeyboardInterceptor keyboardInterceptor = new KeyboardInterceptor();
+            keyboardInterceptor.Start();
         }
 
         private static bool bRunning = true;
