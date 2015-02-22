@@ -4,9 +4,11 @@ using System.Collections.Generic
 
 public class Menu : MonoBehaviour {
 	
-	// Use this for initialization
-	void Start () {
+	private static List<menu> menulist;
 	
+	// Use this for initialization
+	public void Start (List<menu> mlist) {
+		this.menulist = mlist;
 	}
 	
 	// Update is called once per frame
@@ -15,32 +17,32 @@ public class Menu : MonoBehaviour {
 	}
 	
 	//Function for adding a Menu to the global stack!~
-	void Push(List<Menu> menulist){
-		OnPush();
+	public void Push(List<Menu> menulist){
 		if(menulist.Contains(this)){
 			menulist.Remove(this);
 		}
 		menulist.add(this);
+		OnPush();
 	}
 	
 	//Function for removing a Menu from the global stack!~
-	void PopInstance(List<Menu> menulist){
-		OnPop();
+	public void PopInstance(List<Menu> menulist){
 		menulist.Remove(this);
+		OnPop();
 	}
 	
 	//Function for removing the Menu at the end of the global stack!!~
-	static void Pop(List<Menu> menulist){
-		OnPop();
+	public static void Pop(List<Menu> menulist){
 		Menu temp = menulist.last();
 		menulist.Remove(temp);
+		OnPop();
 	}
 	
 	//Functions to be overridden by parent classes!~
-	virtual void OnPop(){
+	protected virtual void OnPop(){
 	}
 	
-	virtual void OnPush(){
+	protected virtual void OnPush(){
 	}
 	
 }
