@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace PorygonOS.Core.Tasks
 {
@@ -20,6 +21,8 @@ namespace PorygonOS.Core.Tasks
         private string gameInfoSection = "GameInfo";
         private string teamNameVariable = "team";
         private string gameNameVariable = "name";
+        private static Timer aTimer;
+
 
         public override void Serialize(BinaryWriter writer)
         {
@@ -69,6 +72,14 @@ namespace PorygonOS.Core.Tasks
                 //Delete the zip file.
                 File.Delete(zipFile);
             }
+
+            // Create a timer with a 24 hour interval.
+            //aTimer = new System.Timers.Timer(86400000);
+            aTimer = new System.Timers.Timer(2000);
+
+            // Hook up the Elapsed event for the timer. 
+            aTimer.Elapsed += OnTimedEvent;
+            aTimer.Enabled = true;
             
             //Return success when all of the games are done.
             return 0;
@@ -97,6 +108,12 @@ namespace PorygonOS.Core.Tasks
             {
                 Directory.Delete(path, true);//Delete the extracted files if they already exist.
             }
+        }
+
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
+
         }
     }
 }

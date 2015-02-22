@@ -33,6 +33,8 @@ namespace PorygonOS
 
         static void Main(string[] args)
         {
+            InstallationTask inst = new InstallationTask();
+            inst.Run();
             globalConfig = ConfigFile.Create("config.ini");
             sharedConfig = ConfigFile.Create("shared.ini");
 
