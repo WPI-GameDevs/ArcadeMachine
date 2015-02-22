@@ -162,3 +162,12 @@ Machine/PorygonOS/PorygonOS.vshost.exe.config
 Machine/PorygonOS/PorygonOS/PorygonOS.exe.config
 Machine/PorygonOS/PorygonOS/PorygonOS.vshost.exe.config
 Machine/PorygonOS/PorygonOS/PorygonOS.vshost.exe.manifest
+
+
+Machine/Frontend/Library
+Machine/Frontend/obj
+Machine/Frontend/Temp
+Machine/Frontend/*.csproj
+Machine/Frontend/*.unityproj
+Machine/Frontend/*.sln
+Machine/Assets/UnityVS
