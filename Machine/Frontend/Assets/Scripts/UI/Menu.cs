@@ -7,7 +7,7 @@ public class Menu : MonoBehaviour {
 	private static List<Menu> menulist;
 	
 	// Use this for initialization
-	public void Start () {
+	private void Start () {
 		this.menulist = new List<Menu>;
 	}
 	
