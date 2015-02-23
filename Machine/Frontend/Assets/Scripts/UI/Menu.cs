@@ -4,11 +4,11 @@ using System.Collections.Generic
 
 public class Menu : MonoBehaviour {
 	
-	private static List<menu> menulist;
+	private static List<Menu> menulist;
 	
 	// Use this for initialization
 	public void Start () {
-		this.menulist = new List<menu>;
+		this.menulist = new List<Menu>;
 	}
 	
 	// Update is called once per frame
