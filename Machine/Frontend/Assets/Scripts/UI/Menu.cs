@@ -7,8 +7,8 @@ public class Menu : MonoBehaviour {
 	private static List<menu> menulist;
 	
 	// Use this for initialization
-	public void Start (List<menu> mlist) {
-		this.menulist = mlist;
+	public void Start () {
+		this.menulist = new List<menu>;
 	}
 	
 	// Update is called once per frame
@@ -17,7 +17,7 @@ public class Menu : MonoBehaviour {
 	}
 	
 	//Function for adding a Menu to the global stack!~
-	public void Push(List<Menu> menulist){
+	public void Push(){
 		if(menulist.Contains(this)){
 			menulist.Remove(this);
 		}
@@ -26,13 +26,13 @@ public class Menu : MonoBehaviour {
 	}
 	
 	//Function for removing a Menu from the global stack!~
-	public void PopInstance(List<Menu> menulist){
+	public void PopInstance(){
 		menulist.Remove(this);
 		OnPop();
 	}
 	
 	//Function for removing the Menu at the end of the global stack!!~
-	public static void Pop(List<Menu> menulist){
+	public static void Pop(){
 		Menu temp = menulist.last();
 		menulist.Remove(temp);
 		OnPop();
