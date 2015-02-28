@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic
+using System.Collections.Generic;
 
 public class Menu : MonoBehaviour {
 	
@@ -8,7 +8,7 @@ public class Menu : MonoBehaviour {
 	
 	// Use this for initialization
 	private void Start () {
-		this.menulist = new List<Menu>;
+		menulist = new List<Menu>();
 	}
 	
 	// Update is called once per frame
@@ -21,7 +21,7 @@ public class Menu : MonoBehaviour {
 		if(menulist.Contains(this)){
 			menulist.Remove(this);
 		}
-		menulist.add(this);
+		menulist.Add(this);
 		OnPush();
 	}
 	
@@ -33,13 +33,13 @@ public class Menu : MonoBehaviour {
 	
 	//Function for removing the Menu at the end of the global stack!!~
 	public static void Pop(){
-		Menu temp = menulist.last();
+		Menu temp = menulist[menulist.Count-1];
 		menulist.Remove(temp);
 		OnPop();
 	}
 	
 	//Functions to be overridden by parent classes!~
-	protected virtual void OnPop(){
+	protected static void OnPop(){
 	}
 	
 	protected virtual void OnPush(){
