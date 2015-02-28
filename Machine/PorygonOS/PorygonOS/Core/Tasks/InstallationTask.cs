@@ -21,8 +21,7 @@ namespace PorygonOS.Core.Tasks
         private string gameInfoSection = "GameInfo";
         private string teamNameVariable = "team";
         private string gameNameVariable = "name";
-        private static Timer aTimer;
-
+        private static Timer aTimer; 
 
         public override void Serialize(BinaryWriter writer)
         {
@@ -53,7 +52,7 @@ namespace PorygonOS.Core.Tasks
 
                 //Unzip the files into folders
                 DeleteDirectoryIfItExists(extractedPath);
-                ZipFile.ExtractToDirectory(zipFile, extractedPath);
+                ZipFile.ExtractToDirectory(zipFile, installationDirectoryName);
 
                 //Find the configuration.ini file in the new directoy
                 string[] iniFiles = Directory.GetFiles(extractedPath, "*.ini");
@@ -73,14 +72,16 @@ namespace PorygonOS.Core.Tasks
                 File.Delete(zipFile);
             }
 
-            // Create a timer with a 24 hour interval.
-            //aTimer = new System.Timers.Timer(86400000);
-            aTimer = new System.Timers.Timer(2000);
-
-            // Hook up the Elapsed event for the timer. 
-            aTimer.Elapsed += OnTimedEvent;
-            aTimer.Enabled = true;
-            
+            //set up timer if not set up yet
+            if (aTimer == null)
+            {
+                // Create a timer with a 24 hour interval.
+                aTimer = new System.Timers.Timer(86400000);
+                //aTimer = new System.Timers.Timer(2000);
+                // Hook up the Elapsed event for the timer. 
+                aTimer.Elapsed += OnTimedEvent;
+                aTimer.Enabled = true;
+            }
             //Return success when all of the games are done.
             return 0;
         }
@@ -110,9 +111,10 @@ namespace PorygonOS.Core.Tasks
             }
         }
 
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("The Elapsed event was raised at {0}", e.SignalTime);
+            Console.WriteLine("Running innstallation at {0}", e.SignalTime);
+            OnRun();
 
         }
     }
