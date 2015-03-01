@@ -22,6 +22,9 @@ namespace PorygonOS.Core.HelperClasses
         private static string keyMapConfigSection = "KeyMapping";
         private static string[] keyMapConfigKeys = new string[]{ "green1", "red1", "blue1", "yellow1", "white1", "black1",
                                                   "green2", "red2", "blue2", "yellow2", "white2", "black2" };
+        private static string[] TheAlphabet = { "Z", "Y", "X", "W", "V", "U", "T", "S", "R", "Q" };
+
+        static bool keyPressed = false;
 
         /// <summary>
         /// Start intercepting the keys.
@@ -46,7 +49,7 @@ namespace PorygonOS.Core.HelperClasses
             for (int i = 0; i < keyMapConfigKeys.Length; i ++ )
             {
                 //Map the global config key to the game config key
-                remapDictionary.Add(Program.GlobalConfig.GetString(keyMapConfigSection, keyMapConfigKeys[i]), "G");//Until we are able to properly load the gameconfig, just type "G"
+                remapDictionary.Add(Program.GlobalConfig.GetString(keyMapConfigSection, keyMapConfigKeys[i]), TheAlphabet[i%10].ToLower());//Until we are able to properly load the gameconfig, just be random
                                     //gameConfigFile.GetString(keyMapConfigSection, keyMapConfigKeys[i]));
             }
 
@@ -81,29 +84,52 @@ namespace PorygonOS.Core.HelperClasses
 
             //Load the game config file.
             Config.ConfigFile gameConfigFile = null;
+
             //Get the dictionary of keys from the configs
             Dictionary<string, string> keyDictionary = RemapKeys(gameConfigFile);
 
+            //If a keyboard key was pressed.
             if (nCode >= 0 && wParam == (IntPtr)WM_KEYDOWN)
             {
-                //Get the key that was pressed.
-                int vkCode = Marshal.ReadInt32(lParam);
-
                 //Parse the key mapping out of the config files.
-                Keys remappedKey;
-                string pressedKeyString = ((Keys)vkCode).ToString();
-                if(keyDictionary.ContainsKey(pressedKeyString))
+                string pressedKeyString = ((Keys)Marshal.ReadInt32(lParam)).ToString();
+
+                //This is the key that the user pressed and we want to replace it with a new key.
+                if (!keyPressed)
                 {
-                    Enum.TryParse(keyDictionary[pressedKeyString], out remappedKey);
-                    Console.WriteLine(remappedKey);
+                    //If the database has the key, send off the replacement.
+                    if (keyDictionary.ContainsKey(pressedKeyString))
+                    {
+                        keyPressed = true;
+                        SendKeys.Send(keyDictionary[pressedKeyString]);//Use SendKeys to simulate the key press in another application
+                    }
+                    //If the database doesn't have the key, reset the flag and ignore it.
+                    else
+                    {
+                        keyPressed = false;
+                    }
+                    //Always ignore the first key that a person presses.
+                    return (System.IntPtr)1;
                 }
+                //After we send the key we want to send, it comes to the callback a second time. 
+                //Just let it through and reset the flag.
+                else
+                {
+                    keyPressed = false;
+                }
+
+                
                 
                 //Replace the pressed key with a new key and pass it along
-                KBDLLHOOKSTRUCT replacementKey = new KBDLLHOOKSTRUCT();
-                Marshal.PtrToStructure(lParam, replacementKey);
-                replacementKey.vkCode = '0';//Set the key to a new key.
-                Marshal.StructureToPtr(replacementKey, lParam, true);
-                return (System.IntPtr)1;
+                /*KBDLLHOOKSTRUCT replacementKey = new KBDLLHOOKSTRUCT();
+                IntPtr newlParam = lParam;
+                Marshal.PtrToStructure(newlParam, replacementKey);
+                replacementKey.vkCode = (uint)remappedKey;//Set the key to a new key.
+                Marshal.StructureToPtr(replacementKey, newlParam, true);*/
+
+                //Return nothing to block the key presses.
+                //return (System.IntPtr)1;
+                //return CallNextHookEx(_hookID, nCode, wParam, newlParam);
             }
 
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
