@@ -10,19 +10,36 @@ public class WindowDisplay : MonoBehaviour
 {
 
     [DllImport("UnityNativeBridge")]
-    static extern UInt32 SetupCapture(uint adapter, uint output);
+    static extern bool SetupCapture(UInt32 pid, int device, int output);
 
-    [DllImport("UnityNativeBridge", CallingConvention = CallingConvention.StdCall)]
-    static extern IntPtr UnityGetCaptureResource();
-
-    [DllImport("UnityNativeBridge", CallingConvention = CallingConvention.StdCall)]
+    [DllImport("UnityNativeBridge")]
     static extern void DestroyCaptureDevice();
+
+    UInt32 GetCaptureAdapterPid()
+    {
+        foreach(Process p in Process.GetProcesses())
+        {
+            try
+            {
+                if(p.ProcessName == "CaptureAdapter")
+                {
+                    return (UInt32)p.Id;
+                }
+            }
+            catch (InvalidOperationException) { continue; }
+        }
+
+        return 0;
+    }
 
 	// Use this for initialization
 	void Start ()
     {
-        long result = SetupCapture((uint)adapter, (uint)screen);
-        UnityEngine.Debug.Log(result);
+        UInt32 pid = GetCaptureAdapterPid();
+        if (pid == 0)
+            return;
+
+        SetupCapture(pid, adapter, screen);
 	}
 
     void OnDestroy()
