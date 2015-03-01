@@ -29,5 +29,3 @@ enum GfxDeviceEventType {
 	kGfxDeviceEventBeforeReset,
 	kGfxDeviceEventAfterReset,
 };
-
-extern "C" UNITYNATIVEBRIDGE_API HRESULT SetupCapture(UINT capture_adapter, UINT capture_output);

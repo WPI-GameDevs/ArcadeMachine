@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnityNativeBridge", "UnityNativeBridge\UnityNativeBridge.vcxproj", "{E3AB86D6-1DCD-44BB-B9EC-541A9D491851}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CaptureAdapterHook", "CaptureAdapterHook\CaptureAdapterHook.vcxproj", "{86543062-BB62-4D14-A3E3-DE4009D9ED1B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CaptureAdapter", "CaptureAdapter\CaptureAdapter.vcxproj", "{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +25,22 @@ Global
 		{E3AB86D6-1DCD-44BB-B9EC-541A9D491851}.Release|Win32.Build.0 = Release|Win32
 		{E3AB86D6-1DCD-44BB-B9EC-541A9D491851}.Release|x64.ActiveCfg = Release|x64
 		{E3AB86D6-1DCD-44BB-B9EC-541A9D491851}.Release|x64.Build.0 = Release|x64
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Debug|Win32.Build.0 = Debug|Win32
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Debug|x64.ActiveCfg = Debug|x64
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Debug|x64.Build.0 = Debug|x64
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Release|Win32.ActiveCfg = Release|Win32
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Release|Win32.Build.0 = Release|Win32
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Release|x64.ActiveCfg = Release|x64
+		{86543062-BB62-4D14-A3E3-DE4009D9ED1B}.Release|x64.Build.0 = Release|x64
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Debug|Win32.Build.0 = Debug|Win32
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Debug|x64.ActiveCfg = Debug|x64
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Debug|x64.Build.0 = Debug|x64
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Release|Win32.ActiveCfg = Release|Win32
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Release|Win32.Build.0 = Release|Win32
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Release|x64.ActiveCfg = Release|x64
+		{1C3598F1-E8E0-4329-AAD8-01FC6F58BB4C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

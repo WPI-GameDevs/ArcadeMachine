@@ -7,13 +7,9 @@
 
 #include "targetver.h"
 
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-// Windows Header Files:
+#include <stdio.h>
+#include <tchar.h>
+
 #include <windows.h>
-#include <d3d11.h>
-#include <DXGI1_2.h>
-#include <TlHelp32.h>
-
-
 
 // TODO: reference additional headers your program requires here

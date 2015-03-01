@@ -19,10 +19,14 @@ namespace CaptureTest
         uint numOutput = 1; // # of output device (i.e. monitor)
 
         SharpDX.Direct3D11.Device device;
+        SharpDX.Direct3D11.Device c_device;
         SharpDX.DXGI.Factory1 factory;
         SharpDX.Direct3D11.Texture2D screenTexture;
+        SharpDX.Direct3D11.Texture2D sharedTexture;
         SharpDX.DXGI.Output1 output;
         SharpDX.DXGI.OutputDuplication duplicatedOutput;
+        IntPtr sharedResourceHandle;
+
 
         Bitmap target;
 
@@ -35,7 +39,8 @@ namespace CaptureTest
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            device = new SharpDX.Direct3D11.Device(SharpDX.Direct3D.DriverType.Hardware);
+            device = new SharpDX.Direct3D11.Device(SharpDX.Direct3D.DriverType.Hardware, SharpDX.Direct3D11.DeviceCreationFlags.None, SharpDX.Direct3D.FeatureLevel.Level_11_0);
+            c_device = new SharpDX.Direct3D11.Device(SharpDX.Direct3D.DriverType.Hardware, SharpDX.Direct3D11.DeviceCreationFlags.None, SharpDX.Direct3D.FeatureLevel.Level_11_1);
             factory = new SharpDX.DXGI.Factory1();
 
             int width = factory.Adapters1[numAdapter].Outputs[numOutput].Description.DesktopBounds.Width;
@@ -50,17 +55,20 @@ namespace CaptureTest
             texdes.Format = SharpDX.DXGI.Format.B8G8R8A8_UNorm;
             texdes.Height = height;
             texdes.Width = width;
-            texdes.OptionFlags = SharpDX.Direct3D11.ResourceOptionFlags.None;
+            texdes.OptionFlags = SharpDX.Direct3D11.ResourceOptionFlags.Shared;
             texdes.MipLevels = 1;
             texdes.ArraySize = 1;
             texdes.SampleDescription.Count = 1;
             texdes.SampleDescription.Quality = 0;
             texdes.Usage = SharpDX.Direct3D11.ResourceUsage.Staging;
 
-            screenTexture = new SharpDX.Direct3D11.Texture2D(device, texdes);
+            screenTexture = new SharpDX.Direct3D11.Texture2D(c_device, texdes);
+            sharedResourceHandle = screenTexture.QueryInterface<SharpDX.DXGI.Resource>().SharedHandle;
+            sharedTexture = device.OpenSharedResource<SharpDX.Direct3D11.Texture2D>(sharedResourceHandle);
+
 
             output = new SharpDX.DXGI.Output1(factory.Adapters1[numAdapter].Outputs[numOutput].NativePointer);
-            duplicatedOutput = output.DuplicateOutput(device);
+            duplicatedOutput = output.DuplicateOutput(c_device);
         }
 
         private void captureButton_Click(object sender, EventArgs e)
@@ -72,37 +80,34 @@ namespace CaptureTest
             displayTimer.Enabled = true;
         }
 
-        private void dislpayTimer_Tick(object sender, EventArgs e)
+        private void dislpayTimer_Tick(object sender, EventArgs ev)
         {     
              // duplicate output stuff
             SharpDX.DXGI.Resource screenResource = null;
             SharpDX.DataStream dataStream;
             SharpDX.DXGI.Surface screenSurface;
 
-	        // try to get duplicated frame within given time
-	        try
-	        {
-		        SharpDX.DXGI.OutputDuplicateFrameInformation duplicateFrameInformation;
-		        duplicatedOutput.AcquireNextFrame(16, out duplicateFrameInformation, out screenResource);
-	        }
-	        catch (SharpDX.SharpDXException exc)
-	        {
-		        if (exc.ResultCode.Code == SharpDX.DXGI.ResultCode.WaitTimeout.Result.Code)
-		        {
-			        // this has not been a successful capture
-			        // thanks @Randy
- 
-			        // keep retrying
-			        return;
-		        }
-		        else
-		        {
-			        throw exc;
-		        }
-	        }
- 
+            try
+            {
+                SharpDX.DXGI.OutputDuplicateFrameInformation duplicateFrameInformation;
+                duplicatedOutput.AcquireNextFrame(1000, out duplicateFrameInformation, out screenResource);
+            }
+            catch (SharpDX.SharpDXException e)
+            {
+                if (e.ResultCode.Code == SharpDX.DXGI.ResultCode.WaitTimeout.Result.Code)
+                {
+
+                    // keep retrying
+                    return;
+                }
+                else
+                {
+                    throw e;
+                }
+            }
+
 	        // copy resource into memory that can be accessed by the CPU
-	        device.ImmediateContext.CopyResource(screenResource.QueryInterface<SharpDX.Direct3D11.Resource>(), screenTexture);
+	        c_device.ImmediateContext.CopyResource(screenResource.QueryInterface<SharpDX.Direct3D11.Resource>(), screenTexture);
 	        // cast from texture to surface, so we can access its bytes
 	        screenSurface = screenTexture.QueryInterface<SharpDX.DXGI.Surface>();
  
