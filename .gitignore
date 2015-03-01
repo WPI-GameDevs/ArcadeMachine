@@ -171,3 +171,5 @@ Machine/Frontend/*.csproj
 Machine/Frontend/*.unityproj
 Machine/Frontend/*.sln
 Machine/Assets/UnityVS
+
+Machine/UsersBank/Devs
