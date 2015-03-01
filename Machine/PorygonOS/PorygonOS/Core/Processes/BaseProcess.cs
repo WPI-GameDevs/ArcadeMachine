@@ -70,21 +70,18 @@ namespace PorygonOS.Core.Processes
             if (!OnPreStart())
                 return;
 
+            //Get the startinfo so we know what to do with the process
             ProcessStartInfo startInfo = GetStartInfo();
 
-            systemProcess.StartInfo = startInfo;
-            systemProcess.PriorityClass = priority;
-
-            systemProcess.EnableRaisingEvents = true;
-            systemProcess.Exited += systemProcess_Exited;
-
-            systemProcess.OutputDataReceived += OnDataReceived;
-
+            //Set up logging
             string logFile = Path.Combine(startInfo.WorkingDirectory, "log.txt");
             FileStream log = new FileStream(logFile, FileMode.OpenOrCreate, FileAccess.Write);
             logWriter = new StreamWriter(log);
 
-            if(!systemProcess.Start())
+            //Start the process with the start info
+            systemProcess = Process.Start(startInfo);
+
+            if(/*!systemProcess.Start()*/systemProcess == null)
             {
                 Log.WriteLine("Process {0} failed to start.", systemProcess.ProcessName);
                 logWriter.WriteLine("[SYSTEM MESSAGE]: THE PROCESS FAILED TO START.");
@@ -94,6 +91,14 @@ namespace PorygonOS.Core.Processes
             }
             else
             {
+                //systemProcess.StartInfo = startInfo;
+                systemProcess.PriorityClass = priority;
+
+                systemProcess.EnableRaisingEvents = true;
+                systemProcess.Exited += systemProcess_Exited;
+
+                systemProcess.OutputDataReceived += OnDataReceived;
+
                 isAlive = true;
                 systemProcess.BeginOutputReadLine();
                 lastRespondeTime = DateTime.Now;

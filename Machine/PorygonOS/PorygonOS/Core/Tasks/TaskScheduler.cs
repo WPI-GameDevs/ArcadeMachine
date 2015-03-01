@@ -31,7 +31,7 @@ namespace PorygonOS.Core.Tasks
 
             lock(timeline)
             {
-                timeline.Add(now, task);
+                timeline.Add(time, task);
             }
 
             if (bIsSleeping)
@@ -262,7 +262,7 @@ namespace PorygonOS.Core.Tasks
                 if (bPauseUpdating || timeline.Count == 0)
                     waitTime = Timeout.InfiniteTimeSpan;
                 else
-                    waitTime = DateTime.Now - timeline.Keys[0];
+                    waitTime = timeline.Keys[0] - DateTime.Now;
 
                 if (waitTime.TotalMilliseconds <= 0.000001f && waitTime.TotalMilliseconds >= 0f)
                     return;//if we have a small period to wait, it is more efficient to not sleep and avoid the context switch
@@ -275,6 +275,7 @@ namespace PorygonOS.Core.Tasks
                 Thread.Sleep(waitTime);
             }
             catch (ThreadInterruptedException) { }
+            catch (ArgumentOutOfRangeException) { }//If a negative time was supplied, just run the task.
 
             bIsSleeping = false;
         }
@@ -287,7 +288,7 @@ namespace PorygonOS.Core.Tasks
                 {
                     DateTime nextTime = timeline.Keys[0];
                     DateTime now = DateTime.Now;
-                    if (now > nextTime)
+                    if (now < nextTime)
                         return;
 
                     OptimizeTaskThreads();//update the optimization list

@@ -43,11 +43,15 @@ namespace PorygonOS.Core.Tasks
             bShutdown = true;
         }
 
+        /// <summary>
+        /// When it is time for this task to run, call this function in the scheduler.
+        /// </summary>
+        /// <returns>The number of seconds until this task runs again. Return 0 to only run once.</returns>
+        protected abstract int OnRun();
+
         public abstract void Serialize(BinaryWriter writer);
 
         public abstract void Deserialize(BinaryReader reader);
-
-        protected abstract int  OnRun();
 
         private volatile bool bShutdown;
     }

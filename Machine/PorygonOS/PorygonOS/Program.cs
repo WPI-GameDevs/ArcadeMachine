@@ -33,8 +33,6 @@ namespace PorygonOS
 
         static void Main(string[] args)
         {
-            InstallationTask inst = new InstallationTask();
-            inst.Run();
             globalConfig = ConfigFile.Create("config.ini");
             sharedConfig = ConfigFile.Create("shared.ini");
 
@@ -56,6 +54,13 @@ namespace PorygonOS
             keyboardInterceptorThread.Start();
 
             scheduler = new Core.Tasks.TaskScheduler();
+
+            //Start the installation task.
+            InstallationTask inst = new InstallationTask();
+            inst.Run();
+
+            //Schedule the frontend to launch in 30 seconds.
+            scheduler.Schedule(DateTime.Now.AddSeconds(3), new FrontendLauncherTask());
 
             Thread readInThread = new Thread(ReadIn);
             readInThread.Start();

@@ -39,6 +39,7 @@ namespace PorygonOS.Core.Tasks
         /// <returns></returns>
         protected override int OnRun()
         {
+            return 0;
             string currentDir = System.IO.Directory.GetCurrentDirectory();
 
             //Get all zip files from the installation directory

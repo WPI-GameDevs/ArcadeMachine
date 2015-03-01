@@ -77,9 +77,11 @@
     <Compile Include="Core\Debug_Core\Log.cs" />
     <Compile Include="Core\HelperClasses\KeyboardInterceptor.cs" />
     <Compile Include="Core\Processes\BaseProcess.cs" />
+    <Compile Include="Core\Processes\FrontendProcess.cs" />
     <Compile Include="Core\Processes\GameProcess.cs" />
     <Compile Include="Core\Processes\ProcessWatcher.cs" />
     <Compile Include="Core\Reflection\ReflectionHelper.cs" />
+    <Compile Include="Core\Tasks\FrontendLauncherTask.cs" />
     <Compile Include="Core\Tasks\InstallationTask.cs" />
     <Compile Include="Core\Tasks\NoBoot.cs" />
     <Compile Include="Core\Tasks\Task.cs" />
